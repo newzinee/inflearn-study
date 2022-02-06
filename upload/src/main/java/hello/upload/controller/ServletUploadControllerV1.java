@@ -26,7 +26,7 @@ public class ServletUploadControllerV1 {
     }
 
     @PostMapping("/upload")
-    public String saveFileV2(HttpServletRequest request) throws ServletException, IOException {
+    public String saveFileV1(HttpServletRequest request) throws ServletException, IOException {
         log.info("request={}", request);
 
         final var itemName = request.getParameter("itemName");
