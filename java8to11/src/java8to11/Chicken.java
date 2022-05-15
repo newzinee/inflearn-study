@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @since 2022/04/25
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE_PARAMETER)
+@Target(ElementType.TYPE_USE)
 public @interface Chicken {
 
 }
