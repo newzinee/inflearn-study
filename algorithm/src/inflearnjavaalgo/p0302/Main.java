@@ -23,19 +23,6 @@ class Main {
             }
         }
 
-        while (index1 < n1) {
-            if (sortedArr1[index1] == sortedArr2[index2 - 1]) {
-                System.out.print(sortedArr1[index1] + " ");
-            }
-            index1++;
-        }
-
-        while (index2 < n2) {
-            if (sortedArr1[index1 - 1] == sortedArr2[index2]) {
-                System.out.print(sortedArr1[index1 - 1] + " ");
-            }
-            index2++;
-        }
     }
 
     public static void main(String[] args) {
