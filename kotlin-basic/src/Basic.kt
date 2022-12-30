@@ -79,6 +79,42 @@ fun main() {
     println("a7: $a7")
 
 //    var a8: Int = a6 // error
-    var a9: Int = a6!! // exception
+//    var a9: Int = a6!! // exception
+
+
+//    var number1   // compile error
+    var number1: Long
+//    println(number1)    // compile error
+
+//    val number2   // compile error
+    val number2: Long
+//    println(number2)  // compile error
+    number2 = 1
+    println(number2)
+
+
+    val str: String? = "A"
+//    println(str.length)  // compile error
+    println("A.length : ${str?.length}")    // 1
+
+    val str2: String? = null
+//    println(str.length)  // compile error
+    println("null.length: ${str2?.length}") // null
+
+    println("Elvis 연산자")
+    val str3: String? = "AB"
+    println(str3?.length ?: 0)
+
+    val str4: String? = null
+    println(str4?.length ?: 0)
+
+    val num1 = 4
+//    val num2: Long = num1   // error
+    val num2: Long = num1.toLong()
 
 }
+
+fun typeCasting(obj: Any?) {
+    val str = obj as? String
+}
+
