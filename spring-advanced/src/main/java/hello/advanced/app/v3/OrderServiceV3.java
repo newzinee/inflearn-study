@@ -22,7 +22,7 @@ public class OrderServiceV3 {
 
         TraceStatus status = null;
         try {
-            status = trace.begin("OrderServiceV2.orderItem()");
+            status = trace.begin("OrderServiceV3.orderItem()");
             orderRepository.save(itemId);
             trace.end(status);
         } catch (Exception e) {
