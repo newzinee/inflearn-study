@@ -20,7 +20,7 @@ public class AspectV4PointCut {
         return joinPoint.proceed();
     }
 
-    @Around(("hello.aop.order.aop.Pointcuts.orderAndService()"))
+    @Around("hello.aop.order.aop.Pointcuts.orderAndService()")
     public Object doTransaction(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             log.info("[트랜잭션 시작] {}", joinPoint.getSignature());
