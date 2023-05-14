@@ -1,5 +1,6 @@
 package com.example.cloudapigatewayservice.filter;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -23,7 +24,7 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
-            log.info("Custom PRE filter: request id -> {}", request.getId());
+            log.info("Custom PRE filter: {}, request id -> {}", config.getBaseMessage(), request.getId());
 
             // Custom post filter
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
@@ -33,7 +34,9 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
         };
     }
 
+    @Data
     public static class Config {
+        private String baseMessage;
 
     }
 
