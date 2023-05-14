@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/cloud-first-service/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/cloud-first-service/build" />
     </content>
+    <orderEntry type="jdk" jdkName="zulu-17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
