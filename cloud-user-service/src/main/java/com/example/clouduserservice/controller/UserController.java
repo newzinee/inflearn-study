@@ -1,6 +1,7 @@
 package com.example.clouduserservice.controller;
 
 import com.example.clouduserservice.dto.UserDto;
+import com.example.clouduserservice.jpa.UserEntity;
 import com.example.clouduserservice.service.UserService;
 import com.example.clouduserservice.vo.Greeting;
 import com.example.clouduserservice.vo.RequestUser;
@@ -13,6 +14,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -49,5 +53,26 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<ResponseUser>> getUsers() {
+        Iterable<UserEntity> users = userService.getUserByAll();
+
+        List<ResponseUser> results = new ArrayList<>();
+        users.forEach(v -> results.add(new ModelMapper().map(v, ResponseUser.class)));
+
+        return ResponseEntity.status(HttpStatus.OK).body(results);
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") String userId) {
+
+        UserDto userDto = userService.getUserByUserId(userId);
+
+        ResponseUser responseUser = new ModelMapper().map(userDto, ResponseUser.class);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseUser);
+    }
+
 
 }

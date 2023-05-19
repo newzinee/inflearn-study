@@ -3,12 +3,16 @@ package com.example.clouduserservice.service;
 import com.example.clouduserservice.dto.UserDto;
 import com.example.clouduserservice.jpa.UserEntity;
 import com.example.clouduserservice.jpa.UserRepository;
+import com.example.clouduserservice.vo.ResponseOrder;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,6 +35,24 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
 
         return mapper.map(userEntity, UserDto.class);
+    }
+
+    @Override
+    public UserDto getUserByUserId(final String userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
+
+        List<ResponseOrder> orders = new ArrayList<>();
+        userDto.setOrders(orders);
+
+        return userDto;
+    }
+
+    @Override
+    public Iterable<UserEntity> getUserByAll() {
+        return userRepository.findAll();
     }
 
 }
