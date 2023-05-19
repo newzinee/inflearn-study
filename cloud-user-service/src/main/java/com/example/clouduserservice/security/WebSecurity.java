@@ -21,6 +21,8 @@ public class WebSecurity {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")
                                 , AntPathRequestMatcher.antMatcher("/users/**")
                                 , AntPathRequestMatcher.antMatcher("/welcome")
+                                , AntPathRequestMatcher.antMatcher("/health_check")
+                                , AntPathRequestMatcher.antMatcher("/user-service/**")
                         )
                         .permitAll()
                 )
