@@ -1,7 +1,9 @@
 package com.example.clouduserservice.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,7 +16,10 @@ import org.springframework.security.web.util.matcher.IpAddressMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurity {
+
+    private final Environment env;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -48,7 +53,7 @@ public class WebSecurity {
     }
 
     private AuthenticationFilter getAuthenticationFilter(AuthenticationManager authenticationManager) {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(env);
         authenticationFilter.setAuthenticationManager(authenticationManager);
         return authenticationFilter;
     }
