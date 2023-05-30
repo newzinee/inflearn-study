@@ -1,0 +1,7 @@
+token:
+  expiration_time: 86400000 #ms
+  secret: usertoken
+
+
+gateway:
+  ip: 192.168.75.135
