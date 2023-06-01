@@ -48,7 +48,9 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         boolean returnValue = true;
         String subject = null;
         try {
-            subject = Jwts.parser().setSigningKey(env.getProperty("token.secret"))
+            String tokenSecret = env.getProperty("token.secret");
+            log.info("token.secret: {}", tokenSecret);
+            subject = Jwts.parser().setSigningKey(tokenSecret)
                     .parseClaimsJws(jwt).getBody()
                     .getSubject();
         } catch (Exception ex) {
@@ -65,9 +67,10 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     private Mono<Void> onError(final ServerWebExchange exchange, final String err, final HttpStatus httpStatus) {
         ServerHttpResponse response = exchange.getResponse();
+        response.setStatusCode(httpStatus);
 
         log.error(err);
-        return response.setComplete();
+        return response.setComplete().then(Mono.empty());
     }
 
     public static class Config {

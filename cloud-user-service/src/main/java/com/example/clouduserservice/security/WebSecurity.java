@@ -45,6 +45,7 @@ public class WebSecurity {
                                 , AntPathRequestMatcher.antMatcher("/welcome")
                                 , AntPathRequestMatcher.antMatcher("/health_check")
                                 , AntPathRequestMatcher.antMatcher("/user-service/**")
+                                , AntPathRequestMatcher.antMatcher("/actuator/**")
                         )
                         .access((authentication, context) -> new AuthorizationDecision(
                                 ipWhiteList.stream().anyMatch(ip -> ip.matches(context.getRequest().getRemoteHost()))))
