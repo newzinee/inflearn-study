@@ -1,6 +1,6 @@
 token:
   expiration_time: 864000000 #ms
-  secret: my_token_default
+  secret: my_token_dev
 
 
 gateway:
