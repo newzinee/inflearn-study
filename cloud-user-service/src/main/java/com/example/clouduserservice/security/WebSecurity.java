@@ -14,12 +14,19 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.IpAddressMatcher;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurity {
 
     private final Environment env;
+
+    private final List<IpAddressMatcher> ipWhiteList = List.of(
+            new IpAddressMatcher("192.168.75.138")
+            , new IpAddressMatcher("127.0.0.1")
+    );
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -40,7 +47,7 @@ public class WebSecurity {
                                 , AntPathRequestMatcher.antMatcher("/user-service/**")
                         )
                         .access((authentication, context) -> new AuthorizationDecision(
-                                new IpAddressMatcher("192.168.75.138").matches(context.getRequest().getRemoteHost())))
+                                ipWhiteList.stream().anyMatch(ip -> ip.matches(context.getRequest().getRemoteHost()))))
                 )
                 .addFilter(getAuthenticationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class))))
                 .build();

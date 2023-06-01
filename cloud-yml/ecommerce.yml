@@ -1,6 +1,6 @@
 token:
   expiration_time: 86400000 #ms
-  secret: usertoken
+  secret: usertoken_commerce_test
 
 
 gateway:
