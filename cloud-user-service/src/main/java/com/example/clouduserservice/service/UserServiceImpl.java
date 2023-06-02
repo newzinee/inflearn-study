@@ -1,16 +1,15 @@
 package com.example.clouduserservice.service;
 
+import com.example.clouduserservice.cilent.OrderServiceClient;
 import com.example.clouduserservice.dto.UserDto;
 import com.example.clouduserservice.jpa.UserEntity;
 import com.example.clouduserservice.jpa.UserRepository;
 import com.example.clouduserservice.vo.ResponseOrder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -33,6 +33,8 @@ public class UserServiceImpl implements UserService {
     private final Environment env;
 
     private final RestTemplate restTemplate;
+
+    private final OrderServiceClient orderServiceClient;
 
     @Override
     public UserDto createUser(final UserDto userDto) {
@@ -55,13 +57,25 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        String orderUrl = String.format(env.getProperty("order-service.url"), userId);
-        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(
-                orderUrl, HttpMethod.GET, null,
-                new ParameterizedTypeReference<>() {
-                });
+//        restTemplate
+//        String orderUrl = String.format(env.getProperty("order-service.url"), userId);
+//        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(
+//                orderUrl, HttpMethod.GET, null,
+//                new ParameterizedTypeReference<>() {
+//                });
+//        List<ResponseOrder> orders = orderListResponse.getBody();
 
-        List<ResponseOrder> orders = orderListResponse.getBody();
+//        feign Client
+//        List<ResponseOrder> orders;
+//        try {
+//            orders = orderServiceClient.getOrders(userId);
+//        } catch (FeignException e) {
+//            log.error(e.getMessage());
+//            return userDto;
+//        }
+
+        List<ResponseOrder> orders = orderServiceClient.getOrders(userId);
+
         userDto.setOrders(orders);
 
         return userDto;

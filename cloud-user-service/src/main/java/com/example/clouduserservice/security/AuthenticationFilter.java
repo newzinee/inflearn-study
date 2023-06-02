@@ -50,11 +50,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         String username = ((User) authResult.getPrincipal()).getUsername();
 
+        String tokenSecret = env.getProperty("token.secret");
+        log.info("tokenSecret: {}", tokenSecret);
         String token = Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis()
                         + Long.parseLong(env.getProperty("token.expiration_time"))))
-                .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
+                .signWith(SignatureAlgorithm.HS512, tokenSecret)
                 .compact();
         response.addHeader("token", token);
         response.addHeader("username", username);
