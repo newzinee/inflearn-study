@@ -1,6 +1,6 @@
 package com.example.clouduserservice.service;
 
-import com.example.clouduserservice.cilent.OrderServiceClient;
+import com.example.clouduserservice.client.OrderServiceClient;
 import com.example.clouduserservice.dto.UserDto;
 import com.example.clouduserservice.jpa.UserEntity;
 import com.example.clouduserservice.jpa.UserRepository;

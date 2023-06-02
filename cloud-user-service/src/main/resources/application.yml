@@ -34,7 +34,8 @@ greeting:
 
 logging:
   level:
-    com.example.userservice.client: DEBUG
+#    com.example.clouduserservice: DEBUG
+    com.example.clouduserservice.client: DEBUG
 
 # actuator
 management:

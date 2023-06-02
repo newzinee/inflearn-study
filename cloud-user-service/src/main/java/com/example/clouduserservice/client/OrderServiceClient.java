@@ -1,4 +1,4 @@
-package com.example.clouduserservice.cilent;
+package com.example.clouduserservice.client;
 
 import com.example.clouduserservice.vo.ResponseOrder;
 import org.springframework.cloud.openfeign.FeignClient;

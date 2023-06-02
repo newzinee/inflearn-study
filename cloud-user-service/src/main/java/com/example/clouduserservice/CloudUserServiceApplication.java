@@ -24,6 +24,7 @@ public class CloudUserServiceApplication {
 		return new RestTemplate();
 	}
 
+	@Bean
 	public Logger.Level feignLoggerLevel() {
 		return Logger.Level.FULL;
 	}
