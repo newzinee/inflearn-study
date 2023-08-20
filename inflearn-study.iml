@@ -9,4 +9,7 @@
     <orderEntry type="jdk" jdkName="zulu-17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="4e5febca-f068-4051-9eb4-4a4d9969875e" />
+  </component>
 </module>
